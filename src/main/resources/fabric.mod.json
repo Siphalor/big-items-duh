@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "big_items_duh",
+  "version": "${version}",
+  "name": "Big items, duh!",
+  "description": "duh",
+  "authors": [
+    "Siphalor, duh"
+  ],
+  "contributors": [],
+  "contact": {
+    "homepage": "https://github.com/Siphalor/big-items-duh",
+    "sources": "https://github.com/Siphalor/big-items-duh"
+  },
+  "license": "MIT",
+  "icon": "assets/big_items_duh/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.siphalor.bigitemsduh.BigItemsDuh"
+    ],
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "big_items_duh.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.4.0"
+  }
+}
