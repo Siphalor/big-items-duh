@@ -126,8 +126,7 @@ if (project.hasProperty("siphalorCurseForgeApi")) {
 				addGameVersion(version)
 			}
 			relations {
-				embeddedLibrary "fabric-api"
-				optionalDependency "roughly-enough-items"
+				embeddedLibrary "amecs"
 			}
 			mainArtifact(remapJar) {
 				displayName = "[${project.mod_mc_version_specifier}] ${project.mod_version}"
