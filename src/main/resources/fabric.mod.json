@@ -13,7 +13,7 @@
 		"sources": "https://github.com/Siphalor/big-items-duh"
 	},
 	"license": "MIT",
-	"icon": "assets/big_items_duh/icon.png",
+	"icon": "assets/big_items_duh/iconx256.png",
 	"environment": "client",
 	"entrypoints": {
 		"main": [
