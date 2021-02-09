@@ -23,8 +23,8 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation "de.siphalor:tweed-1.16:+"
-	include "de.siphalor:tweed-1.16:+"
+	modImplementation "de.siphalor:amecsapi-1.16:+"
+	include "de.siphalor:amecsapi-1.16:+"
 }
 
 processResources {
@@ -51,7 +51,7 @@ tasks.withType(JavaCompile) {
 // if it is present.
 // If you remove this task, sources will not be generated.
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
+	archiveClassifier.set("sources")
 	from sourceSets.main.allSource
 }
 

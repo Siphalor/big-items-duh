@@ -3,7 +3,7 @@
 	"id": "big_items_duh",
 	"version": "${version}",
 	"name": "Big items, duh!",
-	"description": "duh",
+	"description": "duh.\n\nOriginal idea by mezz (ItemZoom)",
 	"authors": [
 		"Siphalor, duh"
 	],
@@ -14,7 +14,7 @@
 	},
 	"license": "MIT",
 	"icon": "assets/big_items_duh/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
 			"de.siphalor.bigitemsduh.BigItemsDuh"

@@ -2,7 +2,9 @@
   "required": true,
   "package": "de.siphalor.bigitemsduh.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [],
+  "mixins": [
+    "MixinHandledScreen"
+  ],
   "client": [],
   "server": [],
   "injectors": {
