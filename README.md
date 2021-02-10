@@ -1,7 +1,7 @@
 # Big items, duh!
 
-[![curseforge downloads](http://cf.way2muchnoise.eu/full_big-items-duh_downloads.svg)](https://minecraft.curseforge.com/projects/big-items-duh)
-[![curseforge mc versions](http://cf.way2muchnoise.eu/versions/big-items-duh.svg)](https://minecraft.curseforge.com/projects/big-items-duh)
+[![curseforge downloads](http://cf.way2muchnoise.eu/full_big-items-duh_downloads.svg)
+![curseforge mc versions](http://cf.way2muchnoise.eu/versions/big-items-duh.svg)](https://curseforge.com/minecraft/mc-mods/big-items-duh)
 
 ![logo](./src/main/resources/assets/big_items_duh/icon.png?raw=true)
 
