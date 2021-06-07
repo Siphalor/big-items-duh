@@ -1,12 +1,12 @@
 plugins {
-	id 'fabric-loom' version '0.6-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 	id 'com.modrinth.minotaur' version '1.1.0'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = "${project.mod_version}+mc${project.minecraft_version}"
@@ -25,23 +25,24 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation "de.siphalor:amecsapi-1.16:+"
-	include "de.siphalor:amecsapi-1.16:+"
+	modImplementation(include("de.siphalor:amecsapi-1.17:1.1.4+")) {
+		exclude module: "nmuk-1.17"
+	}
+
+	modImplementation("net.fabricmc.fabric-api:fabric-key-binding-api-v1:1.0.4+a02b4463a0")
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "version", version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
-	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+	afterEvaluate {
+		from(sourceSets.main.resources.srcDirs) {
+			include "fabric.mod.json"
+			expand "version": version
+			duplicatesStrategy DuplicatesStrategy.INCLUDE
+		}
 	}
 }
-
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
@@ -105,7 +106,7 @@ def getChangelog() {
 
 No changelog found!"""
 	}
-	return ('git log -1 --format=format:"## %s%n%n%b%nRelease by %an" ' + versionCommit).execute().text.trim()
+	return ('git log -1 --format=format:##%x20%s%n%n%b%nRelease%x20by%x20%an ' + versionCommit).execute().text.trim()
 }
 
 task uploadToModSites {
@@ -116,12 +117,11 @@ task uploadToModSites {
 if (project.hasProperty("siphalorCurseForgeApi")) {
 	curseforge {
 		apiKey project.siphalorCurseForgeApi
-		def changes = getChangelog()
 		project {
 			id = "444972"
 			releaseType = project.mod_release
 			changelogType = "markdown"
-			changelog = changes
+			changelog = getChangelog()
 			for (version in ((String) project.mod_mc_versions).split(";")) {
 				addGameVersion(version)
 			}
@@ -137,8 +137,9 @@ if (project.hasProperty("siphalorCurseForgeApi")) {
 }
 
 import com.modrinth.minotaur.TaskModrinthUpload
+
 if (project.hasProperty("siphalorModrinthApi")) {
-	task modrinth (type: TaskModrinthUpload) {
+	task modrinth(type: TaskModrinthUpload) {
 		group = "upload"
 		dependsOn(build)
 

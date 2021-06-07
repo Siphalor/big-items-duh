@@ -5,8 +5,8 @@ import de.siphalor.bigitemsduh.BigItemsDuh;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
@@ -31,41 +31,42 @@ public abstract class MixinHandledScreen extends Screen {
 
 	@Shadow protected int backgroundHeight;
 
-	@Shadow @Final protected PlayerInventory playerInventory;
+	@Shadow @Final protected ScreenHandler handler;
 
 	protected MixinHandledScreen(Text title) {
 		super(title);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Inject(method = "render", at = @At("RETURN"))
 	public void onRendered(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		if (BigItemsDuh.shallRender()) {
 			ItemStack stack;
 
 			Slot slot = getSlotAt(mouseX, mouseY);
-			if (slot != null) {
+			if (slot != null && !slot.getStack().isEmpty()) {
 				stack = slot.getStack();
 			} else {
-				stack = playerInventory.getCursorStack();
+				stack = handler.getCursorStack();
 			}
 
 			if (stack != null && !stack.isEmpty()) {
 				float size = (float) Math.min(x * 0.8F, backgroundHeight * 0.8);
 				float scale = size / 16;
-				RenderSystem.pushMatrix();
-				RenderSystem.disableDepthTest();
+				MatrixStack matrices_ = RenderSystem.getModelViewStack();
+				matrices_.push();
 
 				// For lightning to work correctly, the model needs to be scaled in z direction as well.
 				// This causes problems when the model gets out of the rendering area and disappears partially or as a whole.
 				// To fix this I manually fitted z scale and z translation for a bunch of values and did a linear regression on it.
 				// The results look pretty promising.
-				RenderSystem.translated((x - size) / 2F, (height - size) / 2F, -385F * scale + 955.5F);
-				RenderSystem.scalef(scale, scale, scale);
+				matrices_.translate((x - size) / 2F, (height - size) / 2F, -385F * scale + 955.5F);
+				matrices_.scale(scale, scale, scale);
 
 				drawItem(stack, 0, 0, "");
+				matrices_.pop();
+
+				RenderSystem.applyModelViewMatrix();
 				RenderSystem.enableDepthTest();
-				RenderSystem.popMatrix();
 			}
 		}
 	}
