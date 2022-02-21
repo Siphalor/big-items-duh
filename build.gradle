@@ -16,6 +16,7 @@ loom {}
 
 repositories {
 	maven { url "https://maven.siphalor.de" }
+	maven { url "https://maven.shedaniel.me" }
 }
 
 dependencies {
@@ -29,6 +30,9 @@ dependencies {
 	}
 
 	modImplementation(include("net.fabricmc.fabric-api:fabric-key-binding-api-v1:1.0.8+c8aba2f3c8"))
+
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:7.3.432"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:7.3.432"
 }
 
 processResources {

@@ -3,6 +3,7 @@ package de.siphalor.bigitemsduh;
 import de.siphalor.amecs.api.KeyModifiers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
@@ -20,6 +21,8 @@ public class BigItemsDuh implements ModInitializer {
 	public static final String KEY_BINDING_CATEGORY = "key.categories" + MOD_ID;
 	public static final KeyBinding TOGGLE_KEY_BINDING = new ToggleKeyBinding(new Identifier(MOD_ID, "toggle-zoom"), InputUtil.Type.KEYSYM, 91, KEY_BINDING_CATEGORY, new KeyModifiers(false, false, true));
 	public static final KeyBinding HOLD_KEY_BINDING = new KeyBinding("key." + MOD_ID + ".hold-zoom", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), KEY_BINDING_CATEGORY);
+
+	public static boolean reiLoaded = FabricLoader.getInstance().isModLoaded("roughlyenoughitems");
 
 	private static boolean enabled = true;
 
