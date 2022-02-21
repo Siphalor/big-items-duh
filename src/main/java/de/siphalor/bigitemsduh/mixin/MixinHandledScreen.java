@@ -55,12 +55,8 @@ public abstract class MixinHandledScreen extends Screen {
 				MatrixStack matrices_ = RenderSystem.getModelViewStack();
 				matrices_.push();
 
-				// For lightning to work correctly, the model needs to be scaled in z direction as well.
-				// This causes problems when the model gets out of the rendering area and disappears partially or as a whole.
-				// To fix this I manually fitted z scale and z translation for a bunch of values and did a linear regression on it.
-				// The results look pretty promising.
-				matrices_.translate((x - size) / 2F, (height - size) / 2F, -385F * scale + 955.5F);
-				matrices_.scale(scale, scale, scale);
+				matrices_.translate((x - size) / 2F, (height - size) / 2F, -10F);
+				matrices_.scale(scale, scale, 1F);
 
 				drawItem(stack, 0, 0, "");
 				matrices_.pop();
