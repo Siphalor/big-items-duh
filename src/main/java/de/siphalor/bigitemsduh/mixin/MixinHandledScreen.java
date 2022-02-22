@@ -1,7 +1,9 @@
 package de.siphalor.bigitemsduh.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import de.siphalor.bigitemsduh.BIDConfig;
 import de.siphalor.bigitemsduh.BigItemsDuh;
+import de.siphalor.bigitemsduh.HorizontalAlignment;
 import de.siphalor.bigitemsduh.compat.REIProxy;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -41,9 +43,12 @@ public abstract class MixinHandledScreen extends Screen {
 	@Inject(method = "render", at = @At("RETURN"))
 	public void onRendered(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		if (BigItemsDuh.shallRender()) {
-			float size = (float) Math.min(x * 0.8F, backgroundHeight * 0.8);
+			float size = Math.min(x * BIDConfig.scale, backgroundHeight * BIDConfig.scale);
 			float scale = size / 16;
 			double ix = (x - size) / 2F;
+			if (BIDConfig.horizontalAlignment == HorizontalAlignment.RIGHT) {
+				ix = width - ix - size;
+			}
 			double iy = (height - size) / 2F;
 
 			Slot slot = getSlotAt(mouseX, mouseY);

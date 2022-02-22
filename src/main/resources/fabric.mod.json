@@ -20,7 +20,10 @@
 			"de.siphalor.bigitemsduh.BigItemsDuh"
 		],
 		"client": [],
-		"server": []
+		"server": [],
+		"tweed4:config": [
+			"de.siphalor.bigitemsduh.BIDConfig"
+		]
 	},
 	"mixins": [
 		"big_items_duh.mixins.json"

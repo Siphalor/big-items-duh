@@ -1,5 +1,10 @@
 {
 	"key.categories.big_items_duh": "Big Items, duh!",
-	"key.big_items_duh.hold-zoom": "Hold to zoom items",
-	"key.big_items_duh.toggle-zoom": "Toggle the item zoom"
+	"key.big_items_duh.hold_zoom": "Hold to zoom items",
+	"key.big_items_duh.toggle_zoom": "Toggle the item zoom",
+	"tweed4_tailor_screen.screen.big_items_duh": "Big items, duh!",
+	"tweed4_tailor_screen.screen.big_items_duh.horizontalAlignment": "Alignment",
+	"tweed4_tailor_screen.screen.big_items_duh.scale": "Scale",
+	"tweed4_tailor_screen.enum.de.siphalor.bigitemsduh.HorizontalAlignment.LEFT": "Left",
+	"tweed4_tailor_screen.enum.de.siphalor.bigitemsduh.HorizontalAlignment.RIGHT": "Right"
 }
