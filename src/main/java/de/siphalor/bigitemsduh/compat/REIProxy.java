@@ -10,7 +10,12 @@ import java.util.Optional;
 
 public class REIProxy {
 	public static boolean renderFocusedOverlayEntry(MatrixStack matrices, int x, int y, float scale) {
-		Optional<ScreenOverlay> overlay = REIRuntime.getInstance().getOverlay();
+		REIRuntime reiRuntime = REIRuntime.getInstance();
+		if (!reiRuntime.isOverlayVisible()) {
+			return false;
+		}
+
+		Optional<ScreenOverlay> overlay = reiRuntime.getOverlay();
 		if (overlay.isPresent()) {
 			EntryStack<?> focusedStack = overlay.get().getEntryList().getFocusedStack();
 			if (focusedStack != null && !focusedStack.isEmpty()) {
