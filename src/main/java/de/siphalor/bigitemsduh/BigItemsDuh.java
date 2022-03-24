@@ -18,7 +18,7 @@ public class BigItemsDuh implements ModInitializer {
 	public static final String MOD_ID = "big_items_duh";
 	public static final String MOD_NAME = "Big items, duh!";
 
-	public static final String KEY_BINDING_CATEGORY = "key.categories" + MOD_ID;
+	public static final String KEY_BINDING_CATEGORY = "key.categories." + MOD_ID;
 	public static final KeyBinding TOGGLE_KEY_BINDING = new ToggleKeyBinding(new Identifier(MOD_ID, "toggle_zoom"), InputUtil.Type.KEYSYM, 91, KEY_BINDING_CATEGORY, new KeyModifiers(false, false, true));
 	public static final KeyBinding HOLD_KEY_BINDING = new KeyBinding("key." + MOD_ID + ".hold_zoom", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), KEY_BINDING_CATEGORY);
 
