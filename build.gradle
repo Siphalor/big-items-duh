@@ -41,6 +41,7 @@ dependencies {
 	include(modApi("de.siphalor:coat-$minecraft_major_version:1.0.0-beta.17+mc1.18.2"))
 
 	modImplementation(include(fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version)))
+	modImplementation(include(fabricApi.module("fabric-registry-sync-v0", project.fabric_api_version)))
 
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:8.0.442"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:8.0.442"
