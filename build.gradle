@@ -44,9 +44,13 @@ dependencies {
 
 	modImplementation(include(fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version)))
 	modImplementation(include(fabricApi.module("fabric-registry-sync-v0", project.fabric_api_version)))
+	modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:$rei_version"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+	modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version") {
+		exclude group: "net.fabricmc.fabric-api"
+	}
+	modRuntimeOnly("com.terraformersmc:modmenu:$modmenu_version")
 }
 
 // Workaround for https://github.com/gradle/gradle/issues/10195

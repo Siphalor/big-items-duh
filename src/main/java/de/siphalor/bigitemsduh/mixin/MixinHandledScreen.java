@@ -1,10 +1,10 @@
 package de.siphalor.bigitemsduh.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.siphalor.bigitemsduh.BIDConfig;
 import de.siphalor.bigitemsduh.BigItemsDuh;
 import de.siphalor.bigitemsduh.HorizontalAlignment;
 import de.siphalor.bigitemsduh.compat.REIProxy;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,12 +27,10 @@ public abstract class MixinHandledScreen extends Screen {
 	protected abstract Slot getSlotAt(double xPosition, double yPosition);
 
 	@Shadow
-	protected abstract void drawItem(MatrixStack matrices, ItemStack stack, int xPosition, int yPosition, String amountText);
+	protected abstract void drawItem(DrawContext drawContext, ItemStack stack, int xPosition, int yPosition, String amountText);
 
 	@Shadow
 	protected int x;
-
-	@Shadow protected int backgroundHeight;
 
 	@Shadow @Final protected ScreenHandler handler;
 
@@ -41,9 +39,9 @@ public abstract class MixinHandledScreen extends Screen {
 	}
 
 	@Inject(method = "render", at = @At("RETURN"))
-	public void onRendered(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+	public void onRendered(DrawContext drawContext, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		if (BigItemsDuh.shallRender()) {
-			float size = Math.min(x * BIDConfig.scale, backgroundHeight * BIDConfig.scale);
+			float size = Math.min(x * BIDConfig.scale, this.height * BIDConfig.scale);
 			float scale = size / 16;
 			double ix = (x - size) / 2F;
 			if (BIDConfig.horizontalAlignment == HorizontalAlignment.RIGHT) {
@@ -58,7 +56,7 @@ public abstract class MixinHandledScreen extends Screen {
 				stack = slot.getStack();
 			} else {
 				if (BigItemsDuh.reiLoaded) {
-					if (REIProxy.renderFocusedOverlayEntry(matrices, (int) ix, (int) iy, scale)) {
+					if (REIProxy.renderFocusedOverlayEntry(drawContext, (int) ix, (int) iy, scale)) {
 						return;
 					}
 				}
@@ -68,17 +66,14 @@ public abstract class MixinHandledScreen extends Screen {
 					return;
 				}
 			}
-			MatrixStack matrices_ = RenderSystem.getModelViewStack();
-			matrices_.push();
+			MatrixStack matrices = drawContext.getMatrices();
+			matrices.push();
 
-			matrices_.translate(ix, iy, -10);
-			matrices_.scale(scale, scale, 1F);
+			matrices.translate(ix, iy, -10);
+			matrices.scale(scale, scale, Math.min(scale, 20f));
 
-			drawItem(matrices, stack, 0, 0, "");
-			matrices_.pop();
-
-			RenderSystem.applyModelViewMatrix();
-			RenderSystem.enableDepthTest();
+			drawItem(drawContext, stack, 0, 0, "");
+			matrices.pop();
 		}
 	}
 }
