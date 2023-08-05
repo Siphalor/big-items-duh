@@ -27,7 +27,7 @@ public abstract class MixinHandledScreen extends Screen {
 	protected abstract Slot getSlotAt(double xPosition, double yPosition);
 
 	@Shadow
-	protected abstract void drawItem(ItemStack stack, int xPosition, int yPosition, String amountText);
+	protected abstract void drawItem(MatrixStack matrices, ItemStack stack, int xPosition, int yPosition, String amountText);
 
 	@Shadow
 	protected int x;
@@ -74,7 +74,7 @@ public abstract class MixinHandledScreen extends Screen {
 			matrices_.translate(ix, iy, -10);
 			matrices_.scale(scale, scale, 1F);
 
-			drawItem(stack, 0, 0, "");
+			drawItem(matrices, stack, 0, 0, "");
 			matrices_.pop();
 
 			RenderSystem.applyModelViewMatrix();
